@@ -185,6 +185,8 @@ ENV GDAL_DATA /usr/share/gdal/2.1
 
 ADD ./startup.sh /opt/startup.sh
 ADD ./config/varnish /etc/default/varnish
+ADD ./fill_geocoder.sh /cartodb/script/fill_geocoder.sh
+
 
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
