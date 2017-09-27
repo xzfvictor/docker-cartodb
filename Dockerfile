@@ -1,6 +1,6 @@
 FROM ubuntu:12.04
 RUN locale-gen en_US.UTF-8 &&\
-	update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+        update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 RUN apt-get update &&\
 apt-get install -q -y autoconf binutils-doc bison build-essential flex
 
@@ -125,6 +125,8 @@ python /tmp/get-pip.py
 RUN apt-get install -q -y python-all-dev &&\
 apt-get install -q -y imagemagick unp zip 
 
+ADD ./config/package.json /cartodb/package.json
+
 RUN cd cartodb &&\
 bundle install &&\
 npm install 
@@ -135,6 +137,15 @@ ENV PATH=$PATH:/usr/include/gdal
 
 RUN cd cartodb && pip install --no-use-wheel -r python_requirements.txt
 
+# Geocoder SQL client + server
+RUN git clone https://github.com/CartoDB/data-services.git && \
+  cd /data-services/geocoder/extension && PGUSER=postgres make all install && cd / && \
+  git clone https://github.com/CartoDB/dataservices-api.git && \
+  cd /dataservices-api/server/extension && \
+  PGUSER=postgres make install && \
+  cd ../lib/python/cartodb_services && \
+  pip install -r requirements.txt && pip install . && \
+  cd ../../../../client && PGUSER=postgres make install
 
 #Config Files
 ADD ./config/SQLAPI-prod.js \
@@ -165,8 +176,8 @@ RUN service postgresql start && service redis-server start &&\
 
 ADD ./create_user /cartodb/script/create_user
 RUN service postgresql start && service redis-server start && \
-	bash -l -c "cd /cartodb && bash script/create_user" && \
-	service postgresql stop && service redis-server stop
+        bash -l -c "cd /cartodb && bash script/create_user" && \
+        service postgresql stop && service redis-server stop
 
 EXPOSE 3000 8080 8181
 
