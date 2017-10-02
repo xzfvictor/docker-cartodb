@@ -77,4 +77,4 @@ This can also be done in nginx, you just need to enable gzip and add the mime ty
 This is unrelated to carto in Docker, but It's exciting so I thought I would share it.  [See this gist](http://bl.ocks.org/chriswhong/2695b75fd1936bd034df83c91738648d) 
 
 ## Attribution
-This Dockerfile was inspired by and largely based on [Stefan Verhoeven's image](https://github.com/sverhoeven/docker-cartodb) and [Chris Whong's image] (https://github.com/chriswhong/docker-cartodb). I made a few modifications to get it working under Centos 7 environment.
+This Dockerfile was inspired by and largely based on [Stefan Verhoeven's image](https://github.com/sverhoeven/docker-cartodb) and [Chris Whong's image](https://github.com/chriswhong/docker-cartodb). I made a few modifications to get it working under Centos 7 environment.
