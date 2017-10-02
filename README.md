@@ -41,7 +41,7 @@ You can't connect from the outside world until you setup nginx to forward specif
 
 Install nginx `apt-get install nginx` and then copy `config/cartodb.nginx.proxy.conf` from this repo to `/etc/nginx/conf.d/`. 
 
-Use `certbot-auto` to quickly install SSL certificates for your domain.  Take note of where it tells you it stored the new SSL certificates
+Use `certbot --nginx` to quickly install SSL certificates for your domain.  Take note of where it tells you it stored the new SSL certificates
 
 Edit the file to include your production domain name and the paths to the SSL certificates.
 
